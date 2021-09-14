@@ -8,7 +8,8 @@
 #### Custom Qtile Config by ami_ba ####
 
 import os
-os.system("xrandr --output HDMI-1 --scale 1.12x1.12")
+os.system("xrandr -s 1920x1080")
+#os.system("xrandr --output HDMI-1 --scale 0.89x0.89")
 #os.system("picom -b")
 os.system("picom -b --config ~/.config/picom/picom.conf")
 os.system("nm-applet &")
@@ -101,16 +102,16 @@ layouts = [
     layout.Columns(border_focus_stack='#d75f5f', margin=10),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
+    #layout.Stack(num_stacks=2),
+    #layout.Bsp(),
+    #layout.Matrix(),
+    #layout.MonadTall(),
+    #layout.MonadWide(),
+    #layout.RatioTile(),
+    #layout.Tile(),
+    #layout.TreeTab(),
+    #layout.VerticalTile(),
+    #layout.Zoomy(),
 ]
 
 widget_defaults = dict(
@@ -146,7 +147,7 @@ screens = [
     Screen(
         wallpaper='~/.config/qtile/wallpapers/gruvboxwp2.png',
         wallpaper_mode='fill',
-        bottom=bar.Bar([widget.Notify(background="#282828",),], opacity=1.0, size=16, background="282828"),
+        bottom=bar.Bar([widget.Notify(background="#282828", fontsize=14),], opacity=1.0, size=16, background="282828"),
         top=bar.Bar(
             [
                 widget.Image(
@@ -158,12 +159,14 @@ screens = [
 
                 widget.CurrentLayout(
                     font="Hurmit Nerd Font Bold",
+                    fontsize=16,
                     foreground = "#d3869b",
                     background = "#282828",
                     padding = 5
                 ),
                 widget.GroupBox(
                     font="Hurmit Nerd Font Bold",
+                    fontsize=14,
                     hide_unused="True",
                     foreground="#d3869b",
                     #background="#282828",
@@ -171,6 +174,7 @@ screens = [
                 #widget.Prompt(),
                 widget.WindowName(
                     font="Hurmit Nerd Font Condensed Bold",
+                    fontsize=14,
                     foreground="#d5c4a1",
                     background="#282828"
                 ),
@@ -192,7 +196,13 @@ screens = [
                     border_color="#282828",
                     fill_color="#282828",
                 ),
-                widget.Net(interface="enp6s0", background="#282828", font="Hurmit Nerd Font Bold", foreground="#fabd2f"),
+                widget.Net(
+                    interface="enp6s0",
+                    background="#282828",
+                    font="Hurmit Nerd Font Bold",
+                    fontsize=14,
+                    foreground="#fabd2f"
+                ),
                 widget.Spacer(length=10, background="#282828"),
                 widget.CPUGraph(
                     background="#282828",
@@ -205,12 +215,14 @@ screens = [
                     foreground="#d3869b",
                     background="#282828",
                     font="Hurmit Nerd Font Bold",
+                    fontsize=14,
                     mouse_callbacks={'Button1': htop_start}
                 ),
                 widget.Spacer(length=10, background="#282828"),
                 widget.Clock(
                     mouse_callbacks={'Button1': clock_start},
                     font="Hurmit Nerd Font Bold",
+                    fontsize=14,
                     foreground =  "#2aa198",
                     background =  "#282828",
 
@@ -221,7 +233,7 @@ screens = [
                 widget.Spacer(length=12, background="#282828"),
                 widget.Image(
                     filename='~/.config/qtile/icons/lock.png',
-                    scale="False",
+                    scale="True",
                     background="#282828",
                     mouse_callbacks={'Button1': slock_run},
                 ),
@@ -249,7 +261,7 @@ screens = [
 
                 #widget.QuickExit(),
             ],
-            24,
+            26,
         ),
     ),
 ]
