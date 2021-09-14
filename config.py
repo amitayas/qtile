@@ -5,7 +5,7 @@
 #\__,_/_/ /_/ /_/_/____/_.___/\__,_/  
 #                /_____/              
 
-#### Custom Qtile Config by amitayas ####
+#### Custom Qtile Config by ami_ba ####
 
 import os
 os.system("xrandr --output HDMI-1 --scale 1.12x1.12")
@@ -120,16 +120,7 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-colors = [["#282c34", "#282c34"], # panel background
-          ["#3d3f4b", "#434758"], # background for current screen tab
-          ["#ffffff", "#ffffff"], # font color for group names
-          ["#ff5555", "#ff5555"], # border line color for current tab
-          ["#74438f", "#74438f"], # border line color for 'other tabs' and color for 'odd widgets'
-          ["#4f76c7", "#4f76c7"], # color for the 'even widgets'
-          ["#e1acff", "#e1acff"], # window name
-          ["#ecbbfb", "#ecbbfb"]] # backbround for inactive screens
-
-#Custom Callbacks by amitayas
+#Custom mouse callbacks
 def dmenu_start():
     qtile.cmd_spawn("dmenu_run -i -nb '#191919' -nf '#2aa198' -sb '#2aa198' -sf '#191919'")
 
