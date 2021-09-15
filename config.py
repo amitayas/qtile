@@ -22,7 +22,7 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
 mod = "mod4"
-terminal = guess_terminal()
+#terminal = guess_terminal()
 
 keys = [
     #brave
@@ -190,14 +190,14 @@ screens = [
                 #widget.Systray(background="#282828"),
                 widget.Spacer(length=12, background="#282828"),
                 widget.NetGraph(
-                    interface="enp6s0",
+                    interface="auto",
                     background="282828",
                     graph_color="fabd2f",
                     border_color="#282828",
                     fill_color="#282828",
                 ),
                 widget.Net(
-                    interface="enp6s0",
+                    #interface="enp6s0",
                     background="#282828",
                     font="Hurmit Nerd Font Bold",
                     fontsize=14,
