@@ -212,6 +212,7 @@ screens = [
                     graph_color="#d3869b",
                     fill_color="282828",
                     border_color="282828",
+                    mouse_callbacks={'Button1': htop_start},
                 ),
                 widget.CPU(
                     padding=5,
