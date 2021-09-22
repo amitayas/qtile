@@ -84,25 +84,53 @@ keys = [
         desc="Spawn a command using a prompt widget"),
 ]
 
-groups = [Group(i) for i in "123456789"]
+#groups = [Group(i) for i in "123456789"]
 
-for i in groups:
-    keys.extend([
-        # mod1 + letter of group = switch to group
-        Key([mod], i.name, lazy.group[i.name].toscreen(),
-            desc="Switch to group {}".format(i.name)),
+#groups = [Group("sfds")]
 
-        # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
-            desc="Switch to & move focused window to group {}".format(i.name)),
-        # Or, use below if you prefer not to switch to that group.
-        # # mod1 + shift + letter of group = move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-        #     desc="move focused window to group {}".format(i.name)),
-    ])
+#for i in groups:
+#    keys.extend([
+#        # mod1 + letter of group = switch to group
+#        Key([mod], i.name, lazy.group[i.name].toscreen(),
+#            desc="Switch to group {}".format(i.name)),
+#
+#        # mod1 + shift + letter of group = switch to & move focused window to group
+#        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
+#            desc="Switch to & move focused window to group {}".format(i.name)),
+#        # Or, use below if you prefer not to switch to that group.
+#        # # mod1 + shift + letter of group = move focused window to group
+#        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
+#        #     desc="move focused window to group {}".format(i.name)),
+#    ])
+
+
+
+
+
+
+group_names = [("一", {'layout': 'columns'}),
+               ("二", {'layout': 'columns'}),
+               ("三", {'layout': 'columns'}),
+               ("四", {'layout': 'columns'}),
+               ("五", {'layout': 'columns'}),
+               ("六", {'layout': 'columns'}),
+               ("七", {'layout': 'columns'}),
+               ("八", {'layout': 'columns'}),
+               ("九", {'layout': 'columns'})]
+
+groups = [Group(name, **kwargs) for name, kwargs in group_names]
+
+for i, (name, kwargs) in enumerate(group_names, 1):
+    keys.append(Key([mod], str(i), lazy.group[name].toscreen()))        # Switch to another group
+    keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name))) # Send current window to another group
+
+
+
+
+
 
 layouts = [
-    layout.Columns(border_normal ="#928374",border_focus="#d3869b" ,border_focus_stack='#928374', margin=6),
+    layout.Columns(border_width=3, border_on_single="True", border_normal ="#928374", border_focus="#458588", border_focus_stack='#928374', border_normal_stack="#928374", margin=6),
     layout.Max(border_focus ="#928374"),
     # Try more layouts by unleashing below layouts.
     #layout.Stack(num_stacks=2),
@@ -168,12 +196,13 @@ screens = [
                     padding = 5
                 ),
                 widget.GroupBox(
-                    font="Hurmit Nerd Font Bold",
-                    fontsize=14,
+                    #font="Hurmit Nerd Font Bold",
+                    fontsize=15,
                     hide_unused="True",
                     foreground="#d3869b",
-                    #background="#282828",
+                    background="#282828",
                 ),
+                widget.Spacer(length =6, background="#282828"),
                 #widget.Prompt(),
                 widget.WindowName(
                     font="Hurmit Nerd Font Condensed Bold",
