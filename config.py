@@ -196,8 +196,8 @@ screens = [
                     padding = 5
                 ),
                 widget.GroupBox(
-                    #font="Hurmit Nerd Font Bold",
-                    fontsize=15,
+                    font="URW Gothic:style=Demi Oblique Bold",
+                    fontsize=18,
                     hide_unused="True",
                     foreground="#d3869b",
                     background="#282828",
