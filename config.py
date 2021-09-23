@@ -191,15 +191,17 @@ screens = [
                 widget.CurrentLayout(
                     font="Hurmit Nerd Font Bold",
                     fontsize=16,
+                    #active="#d3869b",
                     foreground = "#d3869b",
                     background = "#282828",
                     padding = 5
                 ),
                 widget.GroupBox(
                     font="URW Gothic:style=Demi Oblique Bold",
-                    fontsize=18,
+                    fontsize=19,
                     hide_unused="True",
-                    foreground="#d3869b",
+                    active="#fb4934",
+                    foreground="#b8bb26",
                     background="#282828",
                 ),
                 widget.Spacer(length =6, background="#282828"),
