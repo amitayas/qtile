@@ -200,14 +200,14 @@ screens = [
                     font="URW Gothic:style=Demi Oblique Bold",
                     fontsize=19,
                     hide_unused="True",
-                    active="#fb4934",
+                    active="#fe8019",
                     foreground="#b8bb26",
                     background="#282828",
                 ),
                 widget.Spacer(length =6, background="#282828"),
                 #widget.Prompt(),
                 widget.WindowName(
-                    font="Hurmit Nerd Font Condensed Bold",
+                    font="Hurmit Nerd Font Bold",
                     fontsize=14,
                     foreground="#d5c4a1",
                     background="#282828"
