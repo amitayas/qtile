@@ -32,7 +32,7 @@ keys = [
     Key([mod], "b", lazy.spawn("brave"), desc="Open Brave Browser"),
 
     #dmenu 
-    Key([mod], "d", lazy.spawn("instantmenu_run -c -i  -l 5 -g 5  -nb '#191919' -nf '#2aa198' -sb '#2aa198' -sf '#191919' -fn 'Hurmit Nerd Font-10'"), desc="Open dmenu"),
+    Key([mod], "d", lazy.spawn("dmenu_run -x 5 -y 32 -z 1500   -l 6 -g 6  -nb '#191919' -nf '#2aa198' -sb '#2aa198' -sf '#191919' -fn 'Hurmit Nerd Font-10'"), desc="Open dmenu"),
 
     #custom keys
     Key([mod, "shift"], "space", lazy.window.toggle_floating(), desc="Toggle floating"),
@@ -108,15 +108,15 @@ keys = [
 
 
 
-group_names = [("一", {'layout': 'columns'}),
-               ("二", {'layout': 'columns'}),
-               ("三", {'layout': 'columns'}),
-               ("四", {'layout': 'columns'}),
-               ("五", {'layout': 'columns'}),
-               ("六", {'layout': 'columns'}),
-               ("七", {'layout': 'columns'}),
-               ("八", {'layout': 'columns'}),
-               ("九", {'layout': 'columns'})]
+group_names = [("一", {'layout': 'monadtall'}),
+               ("二", {'layout': 'monadtall'}),
+               ("三", {'layout': 'monadtall'}),
+               ("四", {'layout': 'monadtall'}),
+               ("五", {'layout': 'monadtall'}),
+               ("六", {'layout': 'monadtall'}),
+               ("七", {'layout': 'monadtall'}),
+               ("八", {'layout': 'monadtall'}),
+               ("九", {'layout': 'monadtall'})]
 
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
@@ -130,13 +130,13 @@ for i, (name, kwargs) in enumerate(group_names, 1):
 
 
 layouts = [
-    layout.Columns(border_width=3, border_on_single="True", border_normal ="#928374", border_focus="#458588", border_focus_stack='#928374', border_normal_stack="#928374", margin=6),
+    #layout.Columns(border_width=3, border_on_single="True", border_normal ="#928374", border_focus="#458588", border_focus_stack='#928374', border_normal_stack="#928374", margin=6),
     layout.Max(border_focus ="#928374"),
     # Try more layouts by unleashing below layouts.
     #layout.Stack(num_stacks=2),
     #layout.Bsp(),
     #layout.Matrix(),
-    #layout.MonadTall(),
+    layout.MonadTall(border_width=3, border_on_single="True", border_normal ="#928374", border_focus="#458588", border_focus_stack='#928374', border_normal_stack="#928374", margin=6),
     #layout.MonadWide(),
     #layout.RatioTile(),
     #layout.Tile(),
@@ -189,7 +189,7 @@ screens = [
                     background="#282828",
                     mouse_callbacks={'Button1': dmenu_start}
                 ),
-
+                widget.Spacer(length=2, background="#282828"),
                 widget.CurrentLayout(
                     font="Hurmit Nerd Font Bold",
                     fontsize=16,
