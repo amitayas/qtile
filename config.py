@@ -26,13 +26,13 @@ mod = "mod4"
 
 keys = [
     #File Manager
-    Key([mod], "f", lazy.spawn("nautilus"), desc="Open Nautilus File Manager"),
+    Key([mod], "f", lazy.spawn("thunar"), desc="Open Nautilus File Manager"),
 
     #brave
     Key([mod], "b", lazy.spawn("brave"), desc="Open Brave Browser"),
 
     #dmenu 
-    Key([mod], "d", lazy.spawn("dmenu_run -i -nb '#191919' -nf '#2aa198' -sb '#2aa198' -sf '#191919'"), desc="Open dmenu"),
+    Key([mod], "d", lazy.spawn("instantmenu_run -c -i  -l 5 -g 5  -nb '#191919' -nf '#2aa198' -sb '#2aa198' -sf '#191919' -fn 'Hurmit Nerd Font-10'"), desc="Open dmenu"),
 
     #custom keys
     Key([mod, "shift"], "space", lazy.window.toggle_floating(), desc="Toggle floating"),
@@ -143,6 +143,7 @@ layouts = [
     #layout.TreeTab(),
     #layout.VerticalTile(),
     #layout.Zoomy(),
+    #layout.Slice(),
 ]
 
 widget_defaults = dict(
@@ -154,7 +155,7 @@ extension_defaults = widget_defaults.copy()
 
 #Custom mouse callbacks
 def dmenu_start():
-    qtile.cmd_spawn("dmenu_run -i -nb '#191919' -nf '#2aa198' -sb '#2aa198' -sf '#191919'")
+    qtile.cmd_spawn("instantmenu_run -c -i  -l 5 -g 5  -nb '#191919' -nf '#2aa198' -sb '#2aa198' -sf '#191919' -fn 'Hurmit Nerd Font-10'")
 
 def htop_start():
     qtile.cmd_spawn("kitty -e htop");
@@ -178,9 +179,10 @@ screens = [
     Screen(
         wallpaper='~/.config/qtile/wallpapers/gruvboxwp2.png',
         wallpaper_mode='fill',
-        bottom=bar.Bar([widget.Notify(background="#282828", fontsize=14),], opacity=1.0, size=16, background="282828"),
+        bottom=bar.Bar([widget.Notify(font="Hurmit Nerd Font Bold", background="#282828", fontsize=14),], opacity=1.0, size=16, background="282828"),
         top=bar.Bar(
             [
+                widget.Spacer(length=3, background="#282828"),
                 widget.Image(
                     filename = "~/.config/qtile/icons/python.png",
                     scale = "False",
@@ -208,7 +210,7 @@ screens = [
                 #widget.Prompt(),
                 widget.WindowName(
                     font="Hurmit Nerd Font Bold",
-                    fontsize=14,
+                    fontsize=15,
                     foreground="#d5c4a1",
                     background="#282828"
                 ),
@@ -233,8 +235,8 @@ screens = [
                 widget.Net(
                     #interface="enp6s0",
                     background="#282828",
-                    font="Hurmit Nerd Font Bold",
-                    fontsize=14,
+                    font="Ubuntu Bold",
+                    fontsize=15,
                     foreground="#fabd2f"
                 ),
                 widget.Spacer(length=10, background="#282828"),
@@ -249,16 +251,25 @@ screens = [
                     padding=5,
                     foreground="#d3869b",
                     background="#282828",
-                    font="Hurmit Nerd Font Bold",
-                    fontsize=14,
+                    font="Ubuntu Bold",
+                    fontsize=15,
                     mouse_callbacks={'Button1': htop_start}
+                ),
+                widget.Spacer(length=10, background="#282828"),
+                widget.Memory(
+                    background="282828",
+                    font="Ubuntu Bold",
+                    fontsize=14,
+                    foreground="#b8bb26",
+                    mouse_callbacks={'Button1': htop_start},
                 ),
                 widget.Spacer(length=10, background="#282828"),
                 widget.Clock(
                     mouse_callbacks={'Button1': clock_start},
-                    font="Hurmit Nerd Font Bold",
-                    fontsize=14,
+                    font="Ubuntu Bold",
+                    fontsize=15,
                     foreground =  "#2aa198",
+                    #foreground="#458588",
                     background =  "#282828",
 
                     format='%Y-%m-%d %a %I:%M %p'
@@ -334,13 +345,6 @@ reconfigure_screens = True
 # focus, should we respect this or not?
 auto_minimize = True
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
-wmname = "LG3D"
+
+wmname = "Qtile"
 
