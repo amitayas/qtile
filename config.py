@@ -25,6 +25,8 @@ mod = "mod4"
 #terminal = guess_terminal()
 
 keys = [
+    
+    Key([mod], "a", lazy.spawn("alacritty"), desc="Open Alacritty"),
     #File Manager
     Key([mod], "f", lazy.spawn("thunar"), desc="Open Nautilus File Manager"),
 
