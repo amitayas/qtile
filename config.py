@@ -8,12 +8,16 @@
 #### Custom Qtile Config by ami_ba ####
 
 import os
-os.system("xrandr -s 1920x1080")
+#os.system("xrandr -s 1920x1080")
 #os.system("xrandr --output HDMI-1 --scale 0.89x0.89")
+#if(os.system("xrandr | grep 'HDMI-A-0 connected'")):
+os.system("xrandr --output HDMI-A-0 --mode 1920x1080 --left-of eDP")
+os.system("xinput --map-to-output 'Wacom HID 5218 Finger' eDP")
 #os.system("picom -b")
-os.system("picom -b --config ~/.config/picom/picom.conf")
+os.system("picom -b --config ~/.config/picom.conf")
 os.system("nm-applet &")
-
+os.system("blueman-applet &")
+os.system("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &")
 from typing import List  # noqa: F401
 from libqtile import qtile
 from libqtile import bar, layout, widget
@@ -34,7 +38,7 @@ keys = [
     Key([mod], "b", lazy.spawn("brave"), desc="Open Brave Browser"),
 
     #dmenu 
-    Key([mod], "d", lazy.spawn("dmenu_run -x 5 -y 32 -z 1500   -l 6 -g 6  -nb '#191919' -nf '#2aa198' -sb '#2aa198' -sf '#191919' -fn 'Hurmit Nerd Font-10'"), desc="Open dmenu"),
+    Key([mod], "d", lazy.spawn("dmenu_run  -l 6 -nb '#191919' -nf '#2aa198' -sb '#2aa198' -sf '#191919' -fn 'Hurmit Nerd Font-10'"), desc="Open dmenu"),
 
     #custom keys
     Key([mod, "shift"], "space", lazy.window.toggle_floating(), desc="Toggle floating"),
@@ -74,7 +78,7 @@ keys = [
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack"),
-    Key([mod], "Return", lazy.spawn("kitty"), desc="Launch terminal"),
+    Key([mod], "Return", lazy.spawn("alacritty"), desc="Launch terminal"),
 
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
@@ -84,6 +88,8 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(),
         desc="Spawn a command using a prompt widget"),
+    Key(["control"], "Tab", lazy.next_screen(), desc="move to next screen")
+
 ]
 
 #groups = [Group(i) for i in "123456789"]
@@ -107,9 +113,6 @@ keys = [
 
 
 
-
-
-
 group_names = [("一", {'layout': 'monadtall'}),
                ("二", {'layout': 'monadtall'}),
                ("三", {'layout': 'monadtall'}),
@@ -128,17 +131,14 @@ for i, (name, kwargs) in enumerate(group_names, 1):
 
 
 
-
-
-
 layouts = [
-    #layout.Columns(border_width=3, border_on_single="True", border_normal ="#928374", border_focus="#458588", border_focus_stack='#928374', border_normal_stack="#928374", margin=6),
+    layout.Columns(border_width=3, border_on_single="True", border_normal ="#928374", border_focus="#458588", border_focus_stack='#928374', border_normal_stack="#928374", margin=6),
     layout.Max(border_focus ="#928374"),
     # Try more layouts by unleashing below layouts.
     #layout.Stack(num_stacks=2),
     #layout.Bsp(),
     #layout.Matrix(),
-    layout.MonadTall(border_width=3, border_on_single="True", border_normal ="#928374", border_focus="#458588", border_focus_stack='#928374', border_normal_stack="#928374", margin=6),
+    #layout.MonadTall(border_width=3, border_on_single="True", border_normal ="#928374", border_focus="#458588", border_focus_stack='#928374', border_normal_stack="#928374", margin=6),
     #layout.MonadWide(),
     #layout.RatioTile(),
     #layout.Tile(),
@@ -160,10 +160,10 @@ def dmenu_start():
     qtile.cmd_spawn("instantmenu_run -c -i  -l 5 -g 5  -nb '#191919' -nf '#2aa198' -sb '#2aa198' -sf '#191919' -fn 'Hurmit Nerd Font-10'")
 
 def htop_start():
-    qtile.cmd_spawn("kitty -e htop");
+    qtile.cmd_spawn("alacritty -e htop");
 
 def clock_start():
-    qtile.cmd_spawn("kitty -e tty-clock");
+    qtile.cmd_spawn("alacritty -e tty-clock");
 
 def systemd_suspend():
     os.system("systemctl suspend")
@@ -179,7 +179,148 @@ def reboot_trigger():
 
 screens = [
     Screen(
-        wallpaper='~/.config/qtile/wallpapers/gruvboxwp2.png',
+        wallpaper='~/.config/qtile/wallpapers/Astro.jpg',
+        wallpaper_mode='fill',
+        bottom=bar.Bar([widget.Notify(font="Hurmit Nerd Font Bold", background="#282828", fontsize=14),], opacity=1.0, size=16, background="282828"),
+        top=bar.Bar(
+            [
+                widget.Spacer(length=3, background="#282828"),
+                widget.Image(
+                    filename = "~/.config/qtile/icons/python.png",
+                    scale = "False",
+                    background="#282828",
+                    mouse_callbacks={'Button1': dmenu_start}
+                ),
+                widget.Spacer(length=2, background="#282828"),
+                widget.CurrentLayout(
+                    font="Hurmit Nerd Font Bold",
+                    fontsize=16,
+                    #active="#d3869b",
+                    foreground = "#d3869b",
+                    background = "#282828",
+                    padding = 5
+                ),
+                widget.GroupBox(
+                    font="URW Gothic:style=Demi Oblique Bold",
+                    fontsize=19,
+                    hide_unused="True",
+                    active="#fe8019",
+                    foreground="#b8bb26",
+                    background="#282828",
+                ),
+                widget.Spacer(length =6, background="#282828"),
+                #widget.Prompt(),
+                widget.WindowName(
+                    font="Hurmit Nerd Font Bold",
+                    fontsize=15,
+                    foreground="#d5c4a1",
+                    background="#282828"
+                ),
+                widget.Chord(
+                    chords_colors={
+                        'launch': ("#ff0000", "#ffffff"),
+                    },
+                    name_transform=lambda name: name.upper(),
+                ),
+                #widget.TextBox("default config", name="default"),
+                #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
+                #widget.Spacer(length=12, background="#282828"),
+                #widget.Systray(background="#282828"),
+                widget.Spacer(length=12, background="#282828"),
+                widget.NetGraph(
+                    interface="auto",
+                    background="282828",
+                    graph_color="fabd2f",
+                    border_color="#282828",
+                    fill_color="#282828",
+                ),
+                widget.Net(
+                    #interface="enp6s0",
+                    background="#282828",
+                    font="Ubuntu Bold",
+                    fontsize=15,
+                    foreground="#fabd2f"
+                ),
+                widget.Spacer(length=10, background="#282828"),
+                widget.CPUGraph(
+                    background="#282828",
+                    graph_color="#d3869b",
+                    fill_color="282828",
+                    border_color="282828",
+                    mouse_callbacks={'Button1': htop_start},
+                ),
+                widget.CPU(
+                    padding=5,
+                    foreground="#d3869b",
+                    background="#282828",
+                    font="Ubuntu Bold",
+                    fontsize=15,
+                    mouse_callbacks={'Button1': htop_start}
+                ),
+                widget.Spacer(length=10, background="#282828"),
+                widget.Memory(
+                    background="282828",
+                    font="Ubuntu Bold",
+                    fontsize=15,
+                    foreground="#b8bb26",
+                    mouse_callbacks={'Button1': htop_start},
+                ),
+                widget.Spacer(length=10, background="#282828"),
+                widget.Clock(
+                    mouse_callbacks={'Button1': clock_start},
+                    font="Ubuntu Bold",
+                    fontsize=15,
+                    foreground =  "#2aa198",
+                    #foreground="#458588",
+                    background =  "#282828",
+
+                    format='%Y-%m-%d %a %I:%M %p'
+                ),
+                widget.Spacer(length=10, background="#282828"),
+                widget.Battery(
+                    background="#282828",
+                    foreground='#fb4934',
+                    font="Ubuntu Bold",
+                    fontsize=15
+                ),
+                widget.Spacer(length=10, background="#282828"),
+                widget.Systray(background="#282828"),
+                widget.Spacer(length=12, background="#282828"),
+                widget.Image(
+                    filename='~/.config/qtile/icons/lock.png',
+                    scale="True",
+                    background="#282828",
+                    mouse_callbacks={'Button1': slock_run},
+                ),
+                widget.Spacer(length=2, background="#282828"),
+                widget.Image(
+                    filename='~/.config/qtile/icons/suspend2.png',
+                    scale="False",
+                    background="#282828",
+                    mouse_callbacks={'Button1': systemd_suspend},
+                ),
+                widget.Spacer(length=2, background="#282828"),
+                widget.Image(filename='~/.config/qtile/icons/reboot.png',
+                    scale="False",
+                    background="#282828",
+                    mouse_callbacks={'Button1': reboot_trigger}
+                ),
+                widget.Spacer(length=2, background="#282828"),
+                widget.Image(
+                    filename='~/.config/qtile/icons/shutdown2.png',
+                    scale="False",
+                    background="282828",
+                    mouse_callbacks={'Button1': shutdown_trigger},
+                ),
+                #widget.Notify(),
+
+                #widget.QuickExit(),
+            ],
+            31,
+        ),
+    ),
+    Screen(
+        wallpaper='~/.config/qtile/wallpapers/Astro.jpg',
         wallpaper_mode='fill',
         bottom=bar.Bar([widget.Notify(font="Hurmit Nerd Font Bold", background="#282828", fontsize=14),], opacity=1.0, size=16, background="282828"),
         top=bar.Bar(
@@ -277,7 +418,14 @@ screens = [
                     format='%Y-%m-%d %a %I:%M %p'
                 ),
                 widget.Spacer(length=10, background="#282828"),
-                widget.Systray(background="#282828"),
+                widget.Battery(
+                    background="#282828",
+                    foreground='#fb4934',
+                    font="Ubuntu Bold",
+                    fontsize=15
+                ),
+                widget.Spacer(length=10, background="#282828"),
+                #widget.Systray(background="#282828"),
                 widget.Spacer(length=12, background="#282828"),
                 widget.Image(
                     filename='~/.config/qtile/icons/lock.png',
@@ -309,9 +457,10 @@ screens = [
 
                 #widget.QuickExit(),
             ],
-            26,
+            30,
         ),
     ),
+
 ]
 
 
